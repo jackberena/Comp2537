@@ -1,12 +1,18 @@
 const express = require('express')
 const app = express()
-
+app.set('view engine', 'ejs')
 
 app.listen(5000, function(err){
     if (err) 
         console.log(err);
 })
 
-app.get('/', function(req,res){
-    res.send('GET request to homepage')
+
+app.use(express.static('public'));
+
+app.get('/profile/:id', function(req,res){
+    res.render("profile.ejs",{
+         "id":req.params.id}
+         
+         )
 })
