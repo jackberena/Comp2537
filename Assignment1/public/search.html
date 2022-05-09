@@ -7,10 +7,15 @@
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="search.js"></script>
+    <link rel="stylesheet" href="/css/search.css" type="text/css">
+
 </head>
 <body>
-    
+    <header id="logo">
+        <a href="index.html"><img src="Pokédex_logo.png"></a>
+    </header>
     <select name="poke_type" id="poke_type">
+        <option value="Type">Type</option>
         <option value="grass">grass</option>
         <option value="water">water</option>
         <option value="electric">electric</option>
@@ -30,9 +35,13 @@
         <option value="dark">dark</option>
         <option value="ground">ground</option>
     </select>
-
+    <br>
+    <span>
+    Seach Pokemon by Name or ID<input id="pokemon_name" type="text"/><br>
+    <button id="get_pokemon"> Search</button>
+    </span>
     <main>
-        
+
     </main>
 
 </body>

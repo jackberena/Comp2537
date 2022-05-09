@@ -55,6 +55,11 @@ main{
     display: grid;
     grid-template-columns: auto auto auto;
 }
+img{
+    width: 100%;
+    height: auto;
+    justify-content: stretch;
+}
 @media screen and (max-width:550px) {
     nav{
         grid-template-columns: auto;
@@ -76,6 +81,10 @@ main{
         padding: 5px 5px;
         background-color:tomato;
         text-align: center;
+    }
+    img{
+        width: 100%;
+        height: auto;
     }
 }
 
