@@ -10,7 +10,7 @@ async function loadNineImages(){
         if(i % 3 == 1){
             to_add += `<div class="images_group">`
         }
-        x = Math.floor(Math.random() * 850) + 1
+        x = Math.floor(Math.random() * 897) + 1
 
         await $.ajax({
             type: "GET",

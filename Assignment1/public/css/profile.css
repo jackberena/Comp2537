@@ -1,0 +1,37 @@
+#stats{
+   text-align:center ;
+   width: 65%;
+   float: right;
+   border-style: solid;
+   border-radius: 10px;
+   border-spacing: 10px;
+   margin-bottom: 10px;
+   background-color: gray;
+}
+
+
+img{
+    float: left;
+    max-width: 100%;
+    border-style: solid ;
+    border-radius: 10px;
+    border-spacing: 10px;
+    background-color: grey;
+}
+
+@media screen and (max-width:1375px) {
+    #stats{
+       width: 100%;
+       float: left;
+       text-align: left;
+    }
+    img{
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+}
+body{
+    background-color:ghostwhite;
+}

@@ -13,9 +13,12 @@ nav a:hover{
     background-color: white;
     color: black;
 }
-
+.images_group{
+    font-family:fantasy;
+    color: ghostwhite;
+}
 nav{
-    background-color: skyblue;
+    background-color: tomato;
     display: grid;
     grid-template-columns: auto auto;
     justify-content: space-between;
@@ -24,7 +27,12 @@ nav{
 img{
     width: 100%;
 }
-
+#logo{
+    width: 387px;
+    height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+}
 main{
     display: grid;
     grid-template-columns: auto auto auto;
@@ -36,6 +44,13 @@ main{
     grid-template-rows: auto auto auto;
     gap: 10px;
 }
+#bottom_nav{
+    padding: 10px 10px;
+    background-color: tomato;
+    text-align: center;
+    color: ghostwhite;
+}
+
 #top_nav{
     display: grid;
     grid-template-columns: auto auto auto;
@@ -56,5 +71,16 @@ main{
         grid-template-rows: auto auto auto;
         justify-content: stretch;
     }
+
+    #bottom_nav{
+        padding: 5px 5px;
+        background-color:tomato;
+        text-align: center;
+    }
 }
+
+body{
+    background-color: gray;
+}
+
     
