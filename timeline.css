@@ -1,0 +1,38 @@
+.timeLog{
+    border: 2px black solid;
+    margin: 3px;
+    background-color: grey;
+}
+
+.likeButtons{
+    appearance: none;
+    background-color: green;
+    border: 1px solid rgba(red, green, blue, alpha);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.deleteButtons{
+    appearance: none;
+    background-color: red;
+    border: 1px solid rgba(red, green, blue, alpha);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+
+}
+
+html{
+    background-color: skyblue;
+}
