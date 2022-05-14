@@ -78,3 +78,8 @@ body{
         height: auto;
     }
 }
+
+a{
+    text-decoration: none;
+    color: ghostwhite;
+}
