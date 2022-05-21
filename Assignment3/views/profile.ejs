@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/profile.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    
+    <h1>
+    Name: <%= name %> #<%= id %>
+    </h1>
+    <br>
+    <h1>
+
+        <div id="stats">
+        
+        Stats
+        <br>
+        HP: <%= hp %>
+        Attack: <%= attack %>
+        <br>
+        Defense: <%= defense %>
+        Speed: <%= speed %>
+        
+        <br>
+        <br>
+        Weight: <%= weight %> lbs
+        <br>
+        Height: <%= height %> ft
+        </div>
+    </h1>
+    <div id="photo">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= id %>.png">
+    </div>
+    
+    
+</body>
+</html>
