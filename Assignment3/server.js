@@ -5,15 +5,19 @@ const mongoose = require('mongoose')
 const bodyparser = require("body-parser")
 app.use(bodyparser.urlencoded({
     extended: true
-  }));
+}));
 
-app.listen(process.env.PORT || 5000, function(err){
-    if (err) 
+app.listen(process.env.PORT || 5000, function (err) {
+    if (err)
         console.log(err);
 })
 
 var session = require('express-session')
-app.use(session({secret:'ssshhhhh', saveUninitialized:true, resave:true}))
+app.use(session({
+    secret: 'ssshhhhh',
+    saveUninitialized: true,
+    resave: true
+}))
 
 app.use("/css", express.static("/css"));
 app.use("/js", express.static("/js"));
@@ -26,100 +30,102 @@ app.use(express.static('public'));
 
 const https = require('https');
 
-app.get('/profile/:id', function(req,res){
+app.get('/profile/:id', function (req, res) {
 
-    const url =`https://pokeapi.co/api/v2/pokemon/${req.params.id}`
+    const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`
     data = ""
-    https.get(url, function(https_res){
-        https_res.on("data", function(chunk){
+    https.get(url, function (https_res) {
+        https_res.on("data", function (chunk) {
             data += chunk
         })
-        https_res.on("end", function(){
+        https_res.on("end", function () {
             data = JSON.parse(data)
-            attack = data.stats.filter((obj_)=>{
+            attack = data.stats.filter((obj_) => {
                 return obj_.stat.name == "attack"
-            }).map((obj2)=>{
+            }).map((obj2) => {
                 return obj2.base_stat
             })
 
-            speed = data.stats.filter((obj_)=>{
+            speed = data.stats.filter((obj_) => {
                 return obj_.stat.name == "speed"
-            }).map((obj2)=>{
+            }).map((obj2) => {
                 return obj2.base_stat
             })
-            defense = data.stats.filter((obj_)=>{
+            defense = data.stats.filter((obj_) => {
                 return obj_.stat.name == "defense"
-            }).map((obj2)=>{
+            }).map((obj2) => {
                 return obj2.base_stat
             })
 
-            hp = data.stats.filter((obj_)=>{
+            hp = data.stats.filter((obj_) => {
                 return obj_.stat.name == "hp"
-            }).map((obj2)=>{
+            }).map((obj2) => {
                 return obj2.base_stat
 
             })
-            res.render("profile.ejs",{
-                "id":req.params.id,
+            res.render("profile.ejs", {
+                "id": req.params.id,
                 "name": data.name,
                 "hp": hp[0],
-                "attack":attack[0],
-                "defense":defense[0],
-                "speed":speed[0],
+                "attack": attack[0],
+                "defense": defense[0],
+                "speed": speed[0],
                 "weight": data.weight,
                 "height": data.height
-            }
-           )
+            })
         })
     })
 })
 
-mongoose.connect("mongodb+srv://laxman:laxman@cluster0.67nxx.mongodb.net/?retryWrites=true&w=majority",
- {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://laxman:kyle@cluster0.67nxx.mongodb.net/Database?retryWrites=true&w=majority", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 const userSchema = new mongoose.Schema({
-    _id:Object,
-    name:String,
-    username:String,
-    password:String
+    _id: Object,
+    name: String,
+    username: String,
+    password: String
 })
 
-const userModel = mongoose.model("users",userSchema)
+const userModel = mongoose.model("users", userSchema)
 
 
-app.get("/", function(req,res){
+app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.htl")
 })
 
-function filter_password(data){
+function filter_password(data) {
     return data.password
 }
 
-app.post("/login", function(req,res){
+app.post("/login", function (req, res) {
     console.log("login request recieved")
-    console.log(req.body.password)
     console.log(req.body.name, req.body.password)
     username = req.body.name
     pass = req.body.password
 
-    userModel.find({username: username}), function(err,user){
+    userModel.find({
+        username: username
+    }, function (err, user) {
         var full_info = user
-        if (err){
+        console.log("Full info:", full_info)
+        if (err) {
             console.log(err)
-        }
-        else{
-            user.user.map(filter_password)
+        } else {
+            user = user.map(filter_password)
             console.log(user[0])
-            if (req.body.password == user[0]){
+            if (req.body.password == user[0]) {
                 id = full_info[0]._id
                 req.session.real_user = full_info
                 console.log(full_info)
                 req.session.authenticated = true
                 res.send(req.session.real_user)
-            }
-            else{
+            } else {
+                console.log("entered incorrect")
                 req.session.authenticated = false
                 res.send("incorrect information")
             }
         }
-    }
+    })
 })
