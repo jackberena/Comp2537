@@ -22,6 +22,7 @@ app.use(session({
 app.use("/css", express.static("/css"));
 app.use("/js", express.static("/js"));
 app.use("/img", express.static("/img"))
+app.use("/views",express.static("/views"))
 
 const cors = require('cors')
 app.use(cors())
@@ -29,6 +30,7 @@ app.use(cors())
 app.use(express.static('public'));
 
 const https = require('https');
+const { Router } = require('express')
 
 app.get('/profile/:id', function (req, res) {
 
@@ -129,3 +131,12 @@ app.post("/login", function (req, res) {
         }
     })
 })
+
+app.get('./views/userprofile'), (req,res) => {
+    userModel.find({name: req.session.real_user.name}, function (err,users) {
+        res.render('userprofile', {
+            name: req.session.real_user[0].name,
+            username: req.session.real_user[0].username
+        })
+    })
+}

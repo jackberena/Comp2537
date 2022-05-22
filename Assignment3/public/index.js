@@ -1,6 +1,6 @@
 function process_response(data){
     if(data != "incorrect information"){
-        location.href = "http://localhost:5000/profile.html"
+        location.href = "http://localhost:5000/homepage.html"
     } else{
         
     }
