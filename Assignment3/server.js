@@ -1,12 +1,26 @@
 const express = require('express')
 const app = express()
 app.set('view engine', 'ejs')
+const mongoose = require('mongoose')
+const bodyparser = require("body-parser")
+app.use(bodyparser.urlencoded({
+    extended: true
+  }));
 
 app.listen(process.env.PORT || 5000, function(err){
     if (err) 
         console.log(err);
 })
 
+var session = require('express-session')
+app.use(session({secret:'ssshhhhh', saveUninitialized:true, resave:true}))
+
+app.use("/css", express.static("/css"));
+app.use("/js", express.static("/js"));
+app.use("/img", express.static("/img"))
+
+const cors = require('cors')
+app.use(cors())
 
 app.use(express.static('public'));
 
@@ -58,4 +72,54 @@ app.get('/profile/:id', function(req,res){
            )
         })
     })
+})
+
+mongoose.connect("mongodb+srv://laxman:laxman@cluster0.67nxx.mongodb.net/?retryWrites=true&w=majority",
+ {useNewUrlParser: true, useUnifiedTopology: true});
+const userSchema = new mongoose.Schema({
+    _id:Object,
+    name:String,
+    username:String,
+    password:String
+})
+
+const userModel = mongoose.model("users",userSchema)
+
+
+app.get("/", function(req,res){
+    res.sendFile(__dirname + "/index.htl")
+})
+
+function filter_password(data){
+    return data.password
+}
+
+app.post("/login", function(req,res){
+    console.log("login request recieved")
+    console.log(req.body.password)
+    console.log(req.body.name, req.body.password)
+    username = req.body.name
+    pass = req.body.password
+
+    userModel.find({username: username}), function(err,user){
+        var full_info = user
+        if (err){
+            console.log(err)
+        }
+        else{
+            user.user.map(filter_password)
+            console.log(user[0])
+            if (req.body.password == user[0]){
+                id = full_info[0]._id
+                req.session.real_user = full_info
+                console.log(full_info)
+                req.session.authenticated = true
+                res.send(req.session.real_user)
+            }
+            else{
+                req.session.authenticated = false
+                res.send("incorrect information")
+            }
+        }
+    }
 })
