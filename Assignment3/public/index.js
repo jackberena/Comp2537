@@ -1,6 +1,6 @@
 function process_response(data){
     if(data != "incorrect information"){
-        location.href = "http://localhost:5000/userprofile.html"
+        location.href = "https://calm-crag-17624.herokuapp.com/userprofile.html"
     } else{
         
     }
