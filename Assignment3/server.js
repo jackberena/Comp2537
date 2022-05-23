@@ -147,14 +147,14 @@ app.get("/getUserInfo", function (req, res) {
     })
   })
 
-app.get('/userprofile'), (req,res) => {
-    userModel.find({name: req.session.real_user.name}, function (err,users) {
-        res.render('index', {
-            name: req.session.real_user[0].name,
-            username: req.session.real_user[0].username
-        })
-    })
-}
+// app.get('/userprofile'), (req,res) => {
+//     userModel.find({name: req.session.real_user[0].name}, function (err,users) {
+//         res.render('index', {
+//             name: req.session.real_user[0].name,
+//             username: req.session.real_user[0].username
+//         })
+//     })
+// }
 
 // app.get('/userprofile.html/getUserInfo', function(req, res){
 //     console.log(req.session.real_user)
