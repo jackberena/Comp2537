@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const ejs =require('ejs')
+app.set('views', './views')
 app.set('view engine', 'ejs')
 const mongoose = require('mongoose')
 const bodyparser = require("body-parser")
@@ -94,7 +96,7 @@ const userModel = mongoose.model("users", userSchema)
 
 
 app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/index.htl")
+    res.sendFile(__dirname + "/index.html")
 })
 
 function filter_password(data) {
@@ -120,9 +122,9 @@ app.post("/login", function (req, res) {
             if (req.body.password == user[0]) {
                 id = full_info[0]._id
                 req.session.real_user = full_info
-                console.log(full_info)
+                console.log(req.body.name)
                 req.session.authenticated = true
-                res.send(req.session.real_user)
+                res.send(req.session.real_user[0])
             } else {
                 console.log("entered incorrect")
                 req.session.authenticated = false
@@ -132,11 +134,30 @@ app.post("/login", function (req, res) {
     })
 })
 
-app.get('./views/userprofile'), (req,res) => {
+app.get("/getUserInfo", function (req, res) {
+    userModel.find({
+      username: req.session.real_user[0].username
+    }, function (err, data) {
+      if (err) {
+        console.log("Err" + err)
+      } else {
+        console.log("Data" + data)
+        res.json(data)
+      }
+    })
+  })
+
+app.get('/userprofile'), (req,res) => {
     userModel.find({name: req.session.real_user.name}, function (err,users) {
-        res.render('userprofile', {
+        res.render('index', {
             name: req.session.real_user[0].name,
             username: req.session.real_user[0].username
         })
     })
 }
+
+// app.get('/userprofile.html/getUserInfo', function(req, res){
+//     console.log(req.session.real_user)
+    
+// })
+

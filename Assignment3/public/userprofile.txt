@@ -15,16 +15,19 @@
     <div id="profile">
         <div>
             <fieldset>
-                <div class ="info">
+                <!-- <div class ="info">
                     <label>Name</label>
                     <h2><%= name%></h2>
                 </div>
                 <div class ="info">
                     <label>Name</label>
-                    <h2><%= username%></h2>
-                </div>
+                    <h2><%= usernamew%></h2>
+                </div> -->
             </fieldset>
         </div>
+        <main>
+            
+        </main>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
