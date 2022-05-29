@@ -116,7 +116,7 @@ app.post("/login", function (req, res) {
         console.log("Full info:", full_info)
         if (err) {
             console.log(err)
-        } else {
+        } else  {
             user = user.map(filter_password)
             console.log(user[0])
             if (req.body.password == user[0]) {
@@ -124,7 +124,11 @@ app.post("/login", function (req, res) {
                 req.session.real_user = full_info
                 console.log(req.body.name)
                 req.session.authenticated = true
+                if (req.session.real_user[0].type == "admin"){
+                    res.send("admin detected")
+                } else{
                 res.send(req.session.real_user[0])
+                }
             } else {
                 console.log("entered incorrect")
                 req.session.authenticated = false
