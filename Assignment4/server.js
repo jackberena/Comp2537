@@ -33,6 +33,8 @@ app.use(express.static('public'));
 
 const https = require('https');
 const { Router } = require('express')
+const { redirect } = require('express/lib/response')
+const { readSync } = require('fs')
 
 app.get('/profile/:id', function (req, res) {
 
@@ -137,6 +139,14 @@ app.post("/login", function (req, res) {
         }
     })
 })
+
+app.get('/adminPanel'),function (req,res){
+    if (req.session.real_user[0].type == "admin"){
+        res.sendFile(__dirname + "/adminPanel.html")
+    } else {
+        res.redirect("/profile.html")
+    }
+}
 
 app.get("/getUserInfo", function (req, res) {
     userModel.find({
