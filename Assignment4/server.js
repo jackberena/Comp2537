@@ -88,7 +88,6 @@ mongoose.connect("mongodb+srv://laxman:kyle@cluster0.67nxx.mongodb.net/Database?
     useUnifiedTopology: true
 });
 const userSchema = new mongoose.Schema({
-    _id: Object,
     name: String,
     username: String,
     password: String,
@@ -173,6 +172,39 @@ app.get("/getUserInfo", function (req, res) {
           res.send(data)
       })
   })
+
+  app.put('/insert', function(req, res){
+    console.log(req.body)
+    userModel.create({
+        'username': req.body.username,
+        'password': req.body.password,
+        'type': req.body.type
+    },
+        function (err, data){
+        
+        if (err){
+            console.log("Errors" + err);
+        }else{
+            console.log("Data" + data);
+        }
+        res.send(data);
+    });
+})
+
+app.get('/delete/:id', function(req, res){
+    //console.log(req.body)
+    userModel.remove({
+        '_id':req.params.id
+    },
+        function (err, data){
+        if (err){
+            console.log("Errors" + err);
+        }else{
+            console.log("Data" + data);
+        }
+        res.send("Delete request is successful");
+    });
+})
 
 // app.get('/userprofile'), (req,res) => {
 //     userModel.find({name: req.session.real_user[0].name}, function (err,users) {

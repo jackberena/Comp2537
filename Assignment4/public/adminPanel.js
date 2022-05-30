@@ -1,3 +1,5 @@
+// const req = require("express/lib/request")
+
 function displayAllUsers() {
     $.ajax({
         type: "get",
@@ -18,7 +20,10 @@ function displayAllUsers() {
                 <img src="${data[l].img}" width="40px" height="40px" alt="">
             </div>
             <div>
-                <h4>${data[l].username}</h4>
+                <h4>username: ${data[l].username}</h4>
+                <h4>type: ${data[l].type}</h4>
+                <button class ="deleteButtons" id="${data[l]["_id"]}"> Delete </button></div>
+                <hr>
             </div>
             </div>
             <div class="contact">
@@ -29,14 +34,41 @@ function displayAllUsers() {
     })
 }
 
+function addNewUser(){
+    user = $("#username").val()
+    console.log($("#username").val())
+    pass = $("#password").val()
+    usertype = $("#user_type").val()
+    $.ajax({
+        url:"/insert",
+        type:"put",
+        data:{
+            username: user,
+            password: pass,
+            type: usertype
+        },
+        success: (res) => {console.log(res)}
+    })
+}
 
-
-
+function remove(){
+    x =this.id
+    $.ajax({
+        url:`/delete/${x}`,
+        success: function(x) {
+            console.log(x)
+            location.reload()
+        }
+    })
+}
 
 
 
 function setup(){
+    $("#create").click(addNewUser)
+    $("body").on("click", ".deleteButtons", remove)
     displayAllUsers()
+
 }
 
 $(document).ready(setup)
