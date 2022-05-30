@@ -91,7 +91,8 @@ const userSchema = new mongoose.Schema({
     _id: Object,
     name: String,
     username: String,
-    password: String
+    password: String,
+    type: String
 })
 
 const userModel = mongoose.model("users", userSchema)
@@ -126,10 +127,11 @@ app.post("/login", function (req, res) {
                 req.session.real_user = full_info
                 console.log(req.body.name)
                 req.session.authenticated = true
-                if (req.session.real_user[0].type == "admin"){
-                    res.send("admin detected")
+                console.log(full_info)
+            if (req.session.real_user[0].type == "admin"){
+                res.send("admin")
                 } else{
-                res.send(req.session.real_user[0])
+                res.send("success")
                 }
             } else {
                 console.log("entered incorrect")
@@ -159,6 +161,17 @@ app.get("/getUserInfo", function (req, res) {
         res.json(data)
       }
     })
+  })
+
+  app.get('/getUsers', function (req,res){
+      userModel.find({type:'user'}, function (err,data){
+          if (err){
+              console.log(err)
+          } else {
+              console.log (data)
+          }
+          res.send(data)
+      })
   })
 
 // app.get('/userprofile'), (req,res) => {

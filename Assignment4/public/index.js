@@ -1,10 +1,19 @@
+// function process_response(data){
+//     if(data == "success"){
+//         location.href = "/userprofile.html"
+//     }
+// }
+
 function process_response(data){
-    if(data != "incorrect information"){
+    if(data == "admin"){
+        location.href = "/adminPanel.html"
+    } else {
         location.href = "/userprofile.html"
-    } else{
-        
     }
 }
+        
+
+
 
 
 
